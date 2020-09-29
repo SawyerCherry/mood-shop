@@ -23,8 +23,28 @@
           Display moods here
          -->
     </main>
-   
-    <script src='./resources/js/scripts.js' type="module">
+    <script>
+        const cart = []
+
+        function addItem(name, price) {
+            const item = { name: name, price: price, qty: 1 }
+            cart.push(item)
+        }
+
+        function showItems() {
+            console.log(`you have ${cart.length} items in your cart`)
+        }
+
+        addItem('apple', 0.99)
+        addItem('orange', 1.29)
+        addItem('banana', 1.15)
+
+        showItems()
     </script>
+
+   <footer>
+
+   </footer>
+    <script src='./resources/js/scripts.js' type="module"></script>
 </body>
 </html>
