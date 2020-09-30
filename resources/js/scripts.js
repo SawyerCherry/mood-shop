@@ -73,22 +73,7 @@ function removeItem(name, qty = 0) {
     }
 }
         // ------------------------------------------------------
-        addItem('apple', 0.99)
-        addItem('orange', 1.29)
-        addItem('banana', 1.15)
-        addItem('apple', 0.99)
-        addItem('frisbee', 0.99)
-        addItem('frisbee', 0.99)
-        addItem('frisbee', 0.99)
-        addItem('frisbee', 0.99)
-        addItem('apple', 0.99)
 
-
-        removeItem('apple', 1)
-        removeItem('frisbee', 1)
-        removeItem('banana')
-
-        showItems()
 
 for (let i=0; i<data.length; ++i) {
     // create a new div element and give it a class name
@@ -102,7 +87,7 @@ for (let i=0; i<data.length; ++i) {
     let button = document.createElement('button');
     desc.innerHTML = data[i].desc
     price.innerHTML = data[i].price
-    button.innerHTML = data[i].name
+    button.id = data[i].name
     // this will change each time we go through the loop. Can you explain why?
     img.src = data[i].image
     img.width = 300
@@ -117,3 +102,10 @@ for (let i=0; i<data.length; ++i) {
     newDiv.appendChild(button)
     document.querySelector('#items').appendChild(newDiv)
 }
+const all_items_button = Array.from(document.querySelectorAll('button'))
+console.log(all_items_button)
+
+all_items_button.forEach(elt => elt.addEventListener('click', () => {
+    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+    showItems()
+  }))
