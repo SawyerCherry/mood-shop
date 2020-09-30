@@ -1,6 +1,95 @@
 const itemsContainer = document.getElementById('items')
 import data from './data.js'
+
+
 // the length of our data determines how many times this loop goes around
+const itemList = document.getElementById('item-list')
+const cartQty = document.getElementById('cart-qty')
+const cartTotal = document.getElementById('cart-total')
+
+console.log(itemList)
+itemList.innerHTML = '<li> Hello World</li>'
+const cart = []
+const obj = {}
+       // add Item 
+function addItem(name, price) {
+    for (let i = 0; i < cart.length; i += 1) {
+        if (cart[i].name === name ) {
+            cart[i].qty += 1
+            return
+        }
+    }
+    const item = { name: name, price: price, qty: 1 }
+    cart.push(item)
+}
+        // ------------------------------------------------------
+        // show items
+function showItems() {
+    const qty = getQty()
+    cartQty.innerHTML = `You have ${qty} items in your cart!`
+    let itemStr = ''
+    for (let i = 0; i < cart.length; i += 1) {
+        const {name, price, qty} = cart[i]
+
+        console.log(`-${cart[i].name} $${cart[i].price} x ${cart[i].qty}`)
+        itemStr += `<li>${name} $${price} x ${qty} = ${qty * price}</li>`
+    }
+    itemList.innerHTML = itemStr
+    const total = getTotal()
+    cartTotal.innerHTML = `Your total in cart: $${getTotal()}`
+}
+        // ------------------------------------------------------
+        // get a total
+function getTotal () {
+    let total = 0
+    for (let i =0; i <cart.length; i += 1) {
+        total += cart[i].price * cart[i].qty
+    }
+    return total.toFixed(2)
+}
+        // ------------------------------------------------------
+        // get quanity
+function getQty() {
+    let qty = 0
+    for (let i = 0; i < cart.length; i += 1) {
+        qty += cart[i].qty
+    }
+    return qty
+}
+        // ------------------------------------------------------
+
+          // remove an item
+function removeItem(name, qty = 0) {
+    for (let i = 0; i < cart.length; i += 1) {
+        if (cart[i].name === name) {
+            if (qty > 0) {
+                cart[i].qty -= qty
+            }
+            if (cart[i].qty === 0 || qty === 0 ) {
+                cart.splice(i, 1)
+            }
+            return
+        }
+    }
+}
+        // ------------------------------------------------------
+        addItem('apple', 0.99)
+        addItem('orange', 1.29)
+        addItem('banana', 1.15)
+        addItem('apple', 0.99)
+        addItem('frisbee', 0.99)
+        addItem('frisbee', 0.99)
+        addItem('frisbee', 0.99)
+        addItem('frisbee', 0.99)
+        addItem('apple', 0.99)
+
+
+        removeItem('apple', 1)
+        removeItem('frisbee', 1)
+        removeItem('banana')
+
+        showItems()
+
 for (let i=0; i<data.length; ++i) {
     // create a new div element and give it a class name
     let newDiv = document.createElement('div');
